@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import './App.css';
 
 function App() {
   const [count, setCount] = useState(0);
+  const [message, setMessage] = useState('loading...')
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch('/api/message');
+      const message = await res.json();
+      setMessage(message);
+    }
+    fetcher();
+  }, []);
 
   return (
     <div className="App">
